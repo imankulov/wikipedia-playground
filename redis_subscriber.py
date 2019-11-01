@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""Module and script to parse pub-sub events and write them to Redis hashes."""
 import json
 
 import redis
@@ -8,10 +9,8 @@ from wikiutils import current_timestamp, pubsub_channel, redis_url
 r = redis.Redis.from_url(redis_url)
 
 
-EXPIRATION_TIMEOUT_SEC = 3600
-
-
 def process():
+    """Process messages from the pubsub stream."""
     ps = r.pubsub()
     ps.subscribe(pubsub_channel)
     for raw_message in ps.listen():
@@ -22,6 +21,7 @@ def process():
 
 
 def process_message(message):
+    """Process single decoded message."""
     domain = message["meta"]["domain"]
     ts = current_timestamp()
     keys = [f"ev:{ts}", f"ev:{domain}:{ts}"]
