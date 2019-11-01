@@ -2,7 +2,7 @@ import os
 import time
 
 # pubsub settings and Redis client
-redis_url = os.environ["REDIS_URL"]
+redis_url = os.environ.get("REDIS_URL", "redis://127.0.0.1:6379")
 pubsub_channel = "wiki"
 
 # Constants for aggregation and expiration
