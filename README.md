@@ -110,3 +110,14 @@ pipenv run ./dash_app.py
 As a result, you should see:
 
 ![](./wikipedia-changes-screenshot.png)
+
+
+More information
+----------------
+
+- [E-Book Redis in Action. Chapter "Counters and Statistics"](https://redislabs.com/ebook/part-2-core-concepts/chapter-5-using-redis-for-application-support/5-2-counters-and-statistics/)
+- [Wikimedia event streams](https://wikitech.wikimedia.org/wiki/Event_Platform/EventStreams#Python)
+- [Python client for Redis (redis-py)](https://github.com/andymccurdy/redis-py)
+- [Plotly Dash documentation](https://dash.plot.ly/)
+- [Plotly time series examples](https://plot.ly/python/time-series/)
+- [Plotly Python API reference](https://plot.ly/python/reference/)
