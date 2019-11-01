@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""Module and script to forward events from wikimedia stream to Redis pub-sub."""
 import asyncio as aio
 import json
 
@@ -11,6 +12,7 @@ wikimedia_stream = "https://stream.wikimedia.org/v2/stream/recentchange"
 
 
 async def publish():
+    """Read events from pub-sub channel."""
     redis = await aioredis.create_redis_pool(redis_url)
     while True:
         async with sse_client.EventSource(wikimedia_stream) as event_source:

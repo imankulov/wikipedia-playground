@@ -24,11 +24,10 @@ def process_message(message):
     """Process single decoded message."""
     domain = message["meta"]["domain"]
     ts = current_timestamp()
-    keys = [f"ev:{ts}", f"ev:{domain}:{ts}"]
+    keys = ["ev", f"ev:{domain}"]
     pipe = r.pipeline()
     for key in keys:
-        pipe.incr(key)
-        pipe.expire(key, 3600)
+        pipe.hincrby(key, ts, 1)
     pipe.sadd("known_domains", domain)
     pipe.execute()
 
