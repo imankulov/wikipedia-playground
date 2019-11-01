@@ -20,7 +20,7 @@ async def publish():
                 async for event in event_source:
                     json.loads(event.data)
                     await redis.publish(pubsub_channel, event.data)
-            except (ConnectionError, aio.TimeoutError):
+            except (ConnectionError, aio.TimeoutError, aio.CancelledError):
                 pass
 
 
