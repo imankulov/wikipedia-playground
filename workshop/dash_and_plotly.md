@@ -30,7 +30,6 @@ data scientists who may not be expert Web programmers. [dash-intro](https://medi
 
 ## Hello world
 
-
 ```python
 # file: dash_app.py
 import dash
@@ -46,7 +45,6 @@ app.layout = html.Div(children=[
 if __name__ == "__main__":
     app.run_server(debug=True)
 ```
-
 
 note:
 Here's a simple Hello world dash application. Run the app with
@@ -87,7 +85,6 @@ y = [random.randint(-10, 10) for i in range(100)]
 
 ---
 
-
 ## Working with plots
 
 note:
@@ -120,7 +117,6 @@ Second, we imported and made use of so-called "plotly graph objects". Here comes
 
 ---
 
-
 ## Working with plots
 
 ![](./images/random-plot.png)
@@ -148,7 +144,6 @@ And second, and this is why I started talking about graph objects, Python helps 
 
 note:
 For the list of graph objects go to https://plot.ly/python/reference/
-
 
 ---
 
@@ -190,7 +185,6 @@ Hash structure
 
 ## Data that we have
 
-
 ```python
 In [1]: import redis
 In [2]: r = redis.Redis(decode_responses=True)
@@ -208,7 +202,6 @@ Out[3]:
 
 note:
 Let's make sense of these data by getting them from Redis, and extracting them to X and Y datasets
-
 
 Create X and Y
 
@@ -238,7 +231,6 @@ Same figure can contain multiple traces. We've just create one trace for en.wiki
 
 Try to make it look like this:
 
-
 ![](./images/en-pt-wikipedia.png)
 
 ---
@@ -249,8 +241,8 @@ note:
 Let's add interactivity to our application. We'll do it step by step, and for the beginning we'll create a dropdown.
 
 ```python
-language = dcc.Dropdown(
-    id="language",
+domains = dcc.Dropdown(
+    id="domains",
     value=["en.wikipedia.org"],
     multi=True,
     options=[
@@ -258,7 +250,7 @@ language = dcc.Dropdown(
         {"label": "Portuguese", "value": "pt.wikipedia.org"},
     ],
 )
-app.layout = html.Div(children=[language, ...])
+app.layout = html.Div(children=[domains, ...])
 ```
 
 note:
@@ -270,9 +262,7 @@ Doc: https://dash.plot.ly/dash-core-components
 
 ## Adding interactivity
 
-
 ![](./images/dropdown.png)
-
 
 note:
 At the moment nothing happens yet. The client can change the values in the dropdown, but we won't be able to reflect these changes. Now it's time to learn about callbacks.
@@ -281,30 +271,26 @@ At the moment nothing happens yet. The client can change the values in the dropd
 
 ## Adding interactivity
 
-
-
 note:
 for the sake of simplicity we move back from barplots for a second, and try to
 visualize our changes with simple text
 
-
 ```python
 from dash.dependencies import Input, Output
 
-language = dcc.Dropdown(...)
+domains = dcc.Dropdown(...)
 info = html.P("Hello world", id="info")
-app.layout = html.Div(children=[language, info])
+app.layout = html.Div(children=[domains, info])
 
 @app.callback(
     Output(component_id="info", component_property="children"),
-    [Input(component_id="language", component_property="value")],
+    [Input(component_id="domains", component_property="value")],
 )
-def update_output_div(language):
-    return " and ".join(language)
+def update_output_div(domains):
+    return " and ".join(domains)
 ```
 
 Doc: https://dash.plot.ly/getting-started-part-2
-
 
 ---
 
@@ -314,7 +300,6 @@ note:
 The text in the info element is changed in response to your changes in the dropdown.
 
 ![](./images/interactivity.png)
-
 
 ---
 
@@ -346,12 +331,11 @@ def update_figure(domains):
 
 ![](./images/interactivity2.png)
 
-
 ---
 
 # Homework
 
-* Add the full list of domains to dropdown
-* Add live update for plots
+- Add the full list of domains to dropdown
+- Add live update for plots
 
 Doc: https://dash.plot.ly/live-updates
